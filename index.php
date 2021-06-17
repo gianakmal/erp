@@ -1,6 +1,9 @@
 <?php
 require 'functions.php';
 $employees = query("SELECT * FROM employees ORDERS LIMIT 5 ");
+$total_employee = total_employee();
+$total_payment = total_payment();
+$minimum_stock = minimum_stock();
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +20,8 @@ $employees = query("SELECT * FROM employees ORDERS LIMIT 5 ");
   <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="./dist/css/adminlte.min.css">
+  <!-- overlayScrollbars
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css"> -->
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -84,6 +89,52 @@ $employees = query("SELECT * FROM employees ORDERS LIMIT 5 ");
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
+
+          <div class="row">
+            <div class="col-lg-4 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3><?= $total_employee[0]['total']; ?></h3>
+
+                  <p>total employee</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-4 col-6">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3><?= $total_payment[0]['total']; ?> $</h3>
+
+                  <p>total payment</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-stats-bars"></i>
+                </div>
+
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-4 col-6">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h3><?= $minimum_stock[0]['min']; ?></h3>
+                  <p>minimum stock</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+
+              </div>
+            </div>
+            <!-- ./col -->
+          </div>
           <!-- /.row -->
           <div class="row">
             <div class="col-12">
@@ -186,6 +237,8 @@ $employees = query("SELECT * FROM employees ORDERS LIMIT 5 ");
   <script src="./dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="./dist/js/demo.js"></script>
+  <!-- overlayScrollbars
+  <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script> -->
 </body>
 
 </html>

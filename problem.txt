@@ -1,0 +1,34 @@
+-==
+temukan semua pelanggan yang telah melakukan order namun belum melakukan pembayaran
+SELECT
+......
+from 
+customer
+left join order using(customerNumber)
+left join payments using(customerNumber)
+
+
+----
+total jumlah pembayaran dari masing-masing customer
+
+SELECT customerNumber, customerName, CONCAT("$"," ",FORMAT(SUM(amount),0)) AS Jumlah_Pembayaran FROM customers JOIN payments USING(customerNumber) GROUP BY customerNumber;
+
+
+----
+Total jumlah order dari masing masing customer
+
+nama_customer total
+a              10
+b              90
+...            ...
+N              total_N
+
+SELECT customerNumber,customerName,COUNT(customerNumber) AS Total_Jumlah_Order FROM customers JOIN orders USING(customerNumber) GROUP BY customerNumber;
+
+
+----
+* total employee
+
+* total pembayaran yg sdh diterima
+
+* stok produk paling kecil

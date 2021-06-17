@@ -82,3 +82,18 @@ function edit($data)
   return mysqli_affected_rows($conn);
   // var_dump($query);
 }
+
+function total_employee()
+{
+  return query("SELECT COUNT(*) AS total FROM employees");
+}
+
+function total_payment()
+{
+  return query("SELECT FORMAT(SUM(amount),0) AS total FROM payments");
+}
+
+function minimum_stock()
+{
+  return query("SELECT MIN(quantityInStock) AS min FROM products");
+}
