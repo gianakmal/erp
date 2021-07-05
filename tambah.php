@@ -100,13 +100,13 @@ if (isset($_POST['tambah'])) {
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                   <div class="card-body">
                     <div class="form-group">
                       <label>Pic</label>
                       <div class="input-group">
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input" name="pic" required>
+                          <input type="file" class="custom-file-input" name="pic">
                           <label class="custom-file-label">Pilih gambar</label>
                         </div>
                       </div>

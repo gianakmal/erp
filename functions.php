@@ -23,7 +23,10 @@ function tambah($data)
 {
   $conn = koneksi();
 
-  $pic = htmlspecialchars($data['pic']);
+  $pic = upload();
+  if (!$pic) {
+    return false;
+  }
   $employeeNumber = htmlspecialchars($data['employeeNumber']);
   $lastName = htmlspecialchars($data['lastName']);
   $firstName = htmlspecialchars($data['firstName']);
@@ -42,6 +45,47 @@ function tambah($data)
   return mysqli_affected_rows($conn);
 }
 
+function upload()
+{
+  $namaFile = $_FILES['pic']['name'];
+  $ukuranFile = $_FILES['pic']['size'];
+  $error = $_FILES['pic']['error'];
+  $tmpName = $_FILES['pic']['tmp_name'];
+
+  //cek apakah ada gambar yang diupload apa tidak
+  if ($error === 4) {
+    echo "<script>
+    alert('Pilih gambar terlebih dahulu!');
+    </script>";
+    return false;
+  }
+  //cek apakah yang diupload adalah gambar
+  $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+  $ekstensiGambar = explode('.', $namaFile);
+  $ekstensiGambar = strtolower(end($ekstensiGambar));
+  if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+    echo "<script>
+    alert('Yang anda upload bukan gambar');
+    </script>";
+    return false;
+  }
+  //cek jika ukurannya terlalu besar
+  if ($ukuranFile > 2000000) {
+    echo "<script>
+    alert('Ukuran gambar terlalu besar');
+    </script>";
+    return false;
+  }
+  //lolos pengecekan, gambar siap diupload
+  //generate nama gambar baru
+  $namaFileBaru = uniqid();
+  $namaFileBaru .= '.';
+  $namaFileBaru .= $ekstensiGambar;
+
+  move_uploaded_file($tmpName, 'image/' . $namaFileBaru);
+  return $namaFileBaru;
+}
+
 function hapus($id)
 {
   $conn = koneksi();
@@ -56,7 +100,14 @@ function edit($data)
   // var_dump($data, $_POST);
   // die;
   $id = $data['id'];
-  $pic = htmlspecialchars($data['pic']);
+  $gambarLama = $data["gambarLama"];
+  //cek apakah user pilih gambar baru atau tidak
+  if ($_FILES['pic']['error'] === 4) {
+    $pic = $gambarLama;
+  } else {
+    $pic = upload();
+  }
+
   $employeeNumber = htmlspecialchars($data['employeeNumber']);
   $lastName = htmlspecialchars($data['lastName']);
   $firstName = htmlspecialchars($data['firstName']);
@@ -82,6 +133,10 @@ function edit($data)
   return mysqli_affected_rows($conn);
   // var_dump($query);
 }
+
+// function aliasReportsTo(){
+//   $e['reportsTo']
+// }
 
 function total_employee()
 {

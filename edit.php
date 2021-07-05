@@ -109,14 +109,16 @@ if (isset($_POST['edit'])) {
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                   <input type="hidden" name="id" value="<?= $e[0]['employeeNumber']; ?>">
+                  <input type="hidden" name="gambarLama" value="<?= $e[0]['pic']; ?>">
                   <div class="card-body">
                     <div class="form-group">
-                      <label>Pic</label>
+                      <label>Pic</label><br>
+                      <img width="80px" height="80px" src="image/<?= $e[0]['pic']; ?>"><br><br>
                       <div class="input-group">
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input" name="pic" required>
+                          <input type="file" class="custom-file-input" name="pic">
                           <label class="custom-file-label">Pilih gambar</label>
                         </div>
                       </div>

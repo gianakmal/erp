@@ -7,6 +7,11 @@ customer
 left join order using(customerNumber)
 left join payments using(customerNumber)
 
+SELECT orderNumber,customerNumber,customerName,amount FROM customers
+JOIN orders USING (customerNumber)
+LEFT JOIN payments USING (customerNumber)
+WHERE amount IS NULL
+GROUP BY customerNumber;
 
 ----
 total jumlah pembayaran dari masing-masing customer
